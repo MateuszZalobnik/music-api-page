@@ -4,7 +4,7 @@ import './fonts.css';
 import StyledComponentsRegistry from './lib/registry';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../assets/styles/theme';
-import Header from '@/components/Header/Header';
+import Header from '@/components/organisms/Header/Header';
 
 export default function RootLayout({
   children,
