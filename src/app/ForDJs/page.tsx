@@ -3,7 +3,6 @@ import useSWR from 'swr';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import { log } from 'console';
 import MusicItem from '@/components/molecules/MusicItem/MusicItem';
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
@@ -33,9 +32,7 @@ const MusicList = styled.div``;
 
 export default function ForDJs() {
   const { data, error, isLoading } = useSWR(url, fetcher);
-  // Initiate both requests in parallel
-  // const music = getMusic();
-  // const [data] = await Promise.all([music]);
+
   console.log(data);
   useEffect(() => {}, [data]);
 
@@ -60,9 +57,4 @@ export default function ForDJs() {
       </MusicList>
     </Wrapper>
   );
-}
-
-async function getMusic() {
-  const res = await fetch(`https://musicapi-fpzm.onrender.com/music`);
-  return res.json();
 }
