@@ -6,5 +6,5 @@ export default function Head() {
       <meta name="description" content="music api" />
       <link rel="icon" href="/favicon.ico" />
     </>
-  )
+  );
 }
