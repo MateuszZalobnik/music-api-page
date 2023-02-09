@@ -4,9 +4,11 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import MusicItem from '@/components/molecules/MusicItem/MusicItem';
+import FilterBar from '@/components/molecules/FilterBar/FilterBar';
+import { useSearchParams } from 'next/navigation';
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
-const url = 'https://musicapi-fpzm.onrender.com/music';
+const URL = 'https://musicapi-fpzm.onrender.com/music';
 
 const Title = styled.h1`
   color: ${({ theme }) => theme.colors.white};
@@ -24,6 +26,10 @@ const Wrapper = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   ${({ theme }) => theme.mq.tablet} {
     font-size: ${({ theme }) => theme.fontSize.m};
+    width: 80%;
+  }
+  ${({ theme }) => theme.mq.desktop} {
+    font-size: ${({ theme }) => theme.fontSize.m};
     width: 60%;
   }
 `;
@@ -31,14 +37,22 @@ const Wrapper = styled.div`
 const MusicList = styled.div``;
 
 export default function ForDJs() {
-  const { data, error, isLoading } = useSWR(url, fetcher);
+  const searchParams = useSearchParams();
+  const bpm_gt = searchParams.get('bpm_gt');
+  const bpm_lt = searchParams.get('bpm_lt');
+  let currentUrl = setApiUrl(bpm_gt, bpm_lt);
 
-  console.log(data);
-  useEffect(() => {}, [data]);
+  console.log(currentUrl);
+  const { data, error, isLoading } = useSWR(currentUrl, fetcher);
+  useEffect(() => {
+    console.log(data);
+    console.log(bpm_gt);
+  }, [data]);
 
   return (
     <Wrapper>
       <Title>ForDJs</Title>
+      <FilterBar />
       <MusicList>
         {data
           ? data.map(
@@ -57,4 +71,13 @@ export default function ForDJs() {
       </MusicList>
     </Wrapper>
   );
+}
+
+function setApiUrl(bpm_gt: string | null, bpm_lt: string | null) {
+  let currentUrl = URL + '?';
+  if (bpm_lt && bpm_gt && bpm_gt != '' && bpm_lt != '')
+    currentUrl = `${currentUrl}bpm_gt=${bpm_gt}&bpm_lt=${bpm_lt}`;
+  else if (bpm_gt && bpm_gt != '') currentUrl = `${currentUrl}bpm_gt=${bpm_gt}`;
+  else if (bpm_lt && bpm_lt != '') currentUrl = `${currentUrl}bpm_lt=${bpm_lt}`;
+  return currentUrl;
 }
