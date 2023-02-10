@@ -60,10 +60,7 @@ export default function ForDJs() {
   console.log(currentUrl);
   const { data, error, isLoading } = useSWR(currentUrl, fetcher);
 
-  useEffect(() => {
-    console.log(data);
-    console.log(bpm_gt);
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   return (
     <Wrapper>
