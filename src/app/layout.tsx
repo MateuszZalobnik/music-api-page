@@ -1,24 +1,25 @@
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
-import './globals.css'
+'use client';
+import './globals.css';
+import './fonts.css';
+import StyledComponentsRegistry from './lib/registry';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../assets/styles/theme';
+import Header from '@/components/organisms/Header/Header';
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
+    <html>
+      <head></head>
       <body>
-        <Header />
-        {children}
-        <Footer />
-        </body>
+        <ThemeProvider theme={theme}>
+          <Header />
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        </ThemeProvider>
+      </body>
     </html>
-  )
+  );
 }
