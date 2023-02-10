@@ -30,7 +30,7 @@ const Home = () => {
       Music API documentation. With the help of this module, developers can
       easily integrate music-related functionality into their applications. Our
       API provides a range of features, including searching for music,
-      retrieving information about artists, albums and more. Whether you're a
+      retrieving information about artists, albums and more. Whether you are a
       beginner or an experienced developer, our API documentation is designed to
       be user-friendly and easy to understand.
       <br />
@@ -39,13 +39,13 @@ const Home = () => {
       artists, BPM (beats per minute), Camelot, and other relevant information.
       This module is a comprehensive resource for DJs, providing them with the
       information they need to create seamless sets and keep their audiences
-      entertained. Whether you're a beginner or a seasoned DJ, our
+      entertained. Whether you are a beginner or a seasoned DJ, our
       information-packed module will help you stay on top of your game.
       <br />
       <br />
       With our web app, developers and DJs alike have access to the tools and
       information they need to succeed in their respective fields. Whether
-      you're looking to build a music-related application or take your DJ skills
+      you are looking to build a music-related application or take your DJ skills
       to the next level, our platform has everything you need to make your
       vision a reality.
     </Wrapper>
