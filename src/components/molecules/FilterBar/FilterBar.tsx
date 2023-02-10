@@ -46,6 +46,7 @@ const SumbitWrapper = styled.div`
 `;
 
 const SumbitBtn = styled.input`
+  cursor: pointer;
   width: 60%;
   display: flex;
   justify-content: center;

@@ -34,6 +34,22 @@ const Wrapper = styled.div`
   }
 `;
 
+const InfoLabel = styled.div`
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 6fr 2fr;
+`;
+
+const InfoWrapper = styled.div`
+  padding: 15px 0px 15px 0px;
+  background-color: ${({ theme }) => theme.colors.darkGrey};
+  justify-items: center;
+  font-size: ${({ theme }) => theme.fontSize.s};
+  grid-column-start: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+
 const MusicList = styled.div``;
 
 export default function ForDJs() {
@@ -41,9 +57,9 @@ export default function ForDJs() {
   const bpm_gt = searchParams.get('bpm_gt');
   const bpm_lt = searchParams.get('bpm_lt');
   let currentUrl = setApiUrl(bpm_gt, bpm_lt);
-
   console.log(currentUrl);
   const { data, error, isLoading } = useSWR(currentUrl, fetcher);
+
   useEffect(() => {
     console.log(data);
     console.log(bpm_gt);
@@ -53,6 +69,12 @@ export default function ForDJs() {
     <Wrapper>
       <Title>ForDJs</Title>
       <FilterBar />
+      <InfoLabel>
+        <InfoWrapper>
+          <div>bpm</div>
+          <div>camelot</div>
+        </InfoWrapper>
+      </InfoLabel>
       <MusicList>
         {data
           ? data.map(
