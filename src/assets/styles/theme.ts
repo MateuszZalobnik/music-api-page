@@ -8,6 +8,7 @@ export const theme = {
     primary: '#BD165C',
   },
   fontSize: {
+    xs: '10px',
     s: '15px',
     m: '20px',
     l: '25px',

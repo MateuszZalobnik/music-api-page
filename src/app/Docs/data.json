@@ -1,0 +1,25 @@
+{
+  "root": {
+    "request": "ROOT",
+    "endpoint": "https://musicapi-fpzm.onrender.com"
+  },
+  "allMusic": {
+    "request": "GET/music",
+    "endpoint": "https://musicapi-fpzm.onrender.com/music",
+    "description": "Returns all music from database."
+  },
+  "musicById": {
+    "request": "GET/music/:id",
+    "endpoint": "https://musicapi-fpzm.onrender.com/music/63e6a45999d2f9ac59f010d9",
+    "description": "Returns music by id."
+  },
+  "musicWithParams": {
+    "request": "GET/music?bpm_lt=140&camelot=4A",
+    "endpoint": "https://musicapi-fpzm.onrender.com/music?bpm_lt=140&bpm_gt=90",
+    "description": "Returns music which have bpm between 90 and 140."
+  },
+  "musicMixParams": {
+    "endpoint": "https://musicapi-fpzm.onrender.com/music?bpm_lt=140&camelot=4a&title=phrase",
+    "description": "It is possible to mix parameters. Returns music which bpm is lower than 140, camelot is 4A and include in title 'phrase'."
+  }
+}
