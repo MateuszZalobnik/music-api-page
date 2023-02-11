@@ -86,7 +86,7 @@ export default function ForDJs() {
                 return <MusicItem key={item._id} data={item} />;
               }
             )
-          : null}
+          : 'connecting to the database...'}
       </MusicList>
     </Wrapper>
   );
