@@ -1,30 +1,8 @@
 'use client';
-import Endpoint from '@/components/Docs/Endpoint';
-import Table from '@/components/Docs/Table';
+import { Endpoint } from '@/components/Docs/Endpoint';
+import { Table } from '@/components/Docs/Table';
 import styled from 'styled-components';
 import data from './data.json';
-
-const Title = styled.h1`
-  color: ${({ theme }) => theme.colors.white};
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  margin: 5vh auto 5vh auto;
-  font-size: ${({ theme }) => theme.fontSize.s};
-  color: ${({ theme }) => theme.colors.grey};
-  font-weight: ${({ theme }) => theme.fontWeight.regular};
-  ${({ theme }) => theme.mq.tablet} {
-    font-size: ${({ theme }) => theme.fontSize.m};
-    width: 60%;
-  }
-`;
-
-const Content = styled.main`
-  margin-top: 40px;
-`;
 
 const Docs = () => {
   return (
@@ -58,3 +36,28 @@ const Docs = () => {
   );
 };
 export default Docs;
+
+const Title = styled.h1`
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin: 5vh auto 5vh auto;
+  font-size: ${({ theme }) => theme.fontSize.s};
+  color: ${({ theme }) => theme.colors.grey};
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  ${({ theme }) => theme.mq.tablet} {
+    font-size: ${({ theme }) => theme.fontSize.m};
+    width: 80%;
+  }
+  ${({ theme }) => theme.mq.desktop} {
+    width: 60%;
+  }
+`;
+
+const Content = styled.main`
+  margin-top: 40px;
+`;

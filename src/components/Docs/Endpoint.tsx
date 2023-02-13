@@ -1,5 +1,25 @@
 import styled from 'styled-components';
 
+export const Endpoint: React.FC<{
+  request?: string | null;
+  endpoint: string;
+  description?: string | null;
+}> = ({ request, endpoint, description }) => {
+  function handleCopy(value: string) {
+    navigator.clipboard.writeText(value);
+  }
+  return (
+    <Wrapper>
+      {request && <Request>{request}</Request>}
+      <EndpointWrapper>
+        {endpoint}
+        <Button onClick={() => handleCopy(endpoint)}>Copy</Button>
+      </EndpointWrapper>
+      {description && <Description>{description}</Description>}
+    </Wrapper>
+  );
+};
+
 const Wrapper = styled.div`
   margin-bottom: 30px;
 `;
@@ -48,24 +68,3 @@ const Button = styled.button`
     border-bottom: 2px solid ${({ theme }) => theme.colors.primary};
   }
 `;
-
-const Endpoint: React.FC<{
-  request?: string | null;
-  endpoint: string;
-  description?: string | null;
-}> = ({ request, endpoint, description }) => {
-  function handleCopy(value: string) {
-    navigator.clipboard.writeText(value);
-  }
-  return (
-    <Wrapper>
-      {request && <Request>{request}</Request>}
-      <EndpointWrapper>
-        {endpoint}
-        <Button onClick={() => handleCopy(endpoint)}>Copy</Button>
-      </EndpointWrapper>
-      {description && <Description>{description}</Description>}
-    </Wrapper>
-  );
-};
-export default Endpoint;

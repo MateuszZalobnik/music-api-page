@@ -1,8 +1,35 @@
-'use client';
 import { useState } from 'react';
 import styled from 'styled-components';
 
+interface Props {
+  data: {
+    title: string;
+    album: string;
+    artist: string[];
+    bpm: number;
+    camelot: string;
+  };
+}
+
+export const MusicItem: React.FC<Props> = ({
+  data: { title, album, artist, bpm, camelot },
+}) => {
+  const [artistString, setArtistString] = useState(artist.join(', '));
+
+  return (
+    <Wrapper>
+      <FirstWrapper>
+        <Title>{title}</Title>
+        <Artist>{artistString}</Artist>
+      </FirstWrapper>
+      <Item>{bpm ? bpm : '-'}</Item>
+      <Item>{camelot ? camelot : '-'}</Item>
+    </Wrapper>
+  );
+};
+
 const Wrapper = styled.div`
+  border-radius: ${({ theme }) => theme.borderRadius.xs};
   margin-top: 20px;
   display: grid;
   grid-template-columns: 6fr 1fr 1fr;
@@ -35,31 +62,3 @@ const Artist = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   font-size: ${({ theme }) => theme.fontSize.s};
 `;
-
-interface Props {
-  data: {
-    title: string;
-    album: string;
-    artist: string[];
-    bpm: number;
-    camelot: string;
-  };
-}
-
-const MusicItem: React.FC<Props> = ({
-  data: { title, album, artist, bpm, camelot },
-}) => {
-  const [artistString, setArtistString] = useState(artist.join(', '));
-
-  return (
-    <Wrapper>
-      <FirstWrapper>
-        <Title>{title}</Title>
-        <Artist>{artistString}</Artist>
-      </FirstWrapper>
-      <Item>{bpm ? bpm : '-'}</Item>
-      <Item>{camelot ? camelot : '-'}</Item>
-    </Wrapper>
-  );
-};
-export default MusicItem;
