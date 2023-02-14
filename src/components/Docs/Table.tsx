@@ -1,25 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.table`
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  border-collapse: collapse;
-  table,
-  td,
-  th {
-    border: 2px solid ${({ theme }) => theme.colors.grey};
-  }
-
-  ${({ theme }) => theme.mq.tablet} {
-    font-size: ${({ theme }) => theme.fontSize.s};
-    table,
-    td,
-    th {
-      padding: 10px;
-    }
-  }
-`;
-
-const Table = () => {
+export const Table = () => {
   return (
     <Wrapper>
       <thead>
@@ -59,4 +40,22 @@ const Table = () => {
     </Wrapper>
   );
 };
-export default Table;
+
+const Wrapper = styled.table`
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  border-collapse: collapse;
+  table,
+  td,
+  th {
+    border: 2px solid ${({ theme }) => theme.colors.grey};
+  }
+
+  ${({ theme }) => theme.mq.tablet} {
+    font-size: ${({ theme }) => theme.fontSize.s};
+    table,
+    td,
+    th {
+      padding: 10px;
+    }
+  }
+`;

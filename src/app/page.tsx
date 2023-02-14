@@ -1,24 +1,6 @@
 'use client';
 import styled from 'styled-components';
 
-const Wrapper = styled.p`
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  margin: 5vh auto 0 auto;
-  font-size: ${({ theme }) => theme.fontSize.s};
-  color: ${({ theme }) => theme.colors.grey};
-  font-weight: ${({ theme }) => theme.fontWeight.regular};
-  span {
-    font-weight: ${({ theme }) => theme.fontWeight.bold};
-    color: ${({ theme }) => theme.colors.primary};
-  }
-  ${({ theme }) => theme.mq.tablet} {
-    font-size: ${({ theme }) => theme.fontSize.m};
-    width: 60%;
-  }
-`;
-
 const Home = () => {
   return (
     <Wrapper>
@@ -52,3 +34,21 @@ const Home = () => {
   );
 };
 export default Home;
+
+const Wrapper = styled.p`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin: 5vh auto 0 auto;
+  font-size: ${({ theme }) => theme.fontSize.s};
+  color: ${({ theme }) => theme.colors.grey};
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  span {
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
+    color: ${({ theme }) => theme.colors.primary};
+  }
+  ${({ theme }) => theme.mq.tablet} {
+    font-size: ${({ theme }) => theme.fontSize.m};
+    width: 60%;
+  }
+`;
