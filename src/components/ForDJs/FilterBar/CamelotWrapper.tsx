@@ -1,3 +1,5 @@
+import { useSearchParams } from 'next/navigation';
+import { Dispatch, SetStateAction, useState } from 'react';
 import styled from 'styled-components';
 
 const CAMELOTS = [
@@ -54,14 +56,32 @@ const Wrapper = styled.div`
   }
 `;
 
-const CamelotDropdown = () => {
+export const CamelotDropdown: React.FC<{
+  camelot: string[];
+  setCamelot: Dispatch<SetStateAction<string[]>>;
+}> = ({ camelot, setCamelot }) => {
+  const handleChange = (event: any) => {
+    if (event.target.checked) {
+      setCamelot([...camelot, event.target.value]);
+    } else {
+      setCamelot(camelot.filter((id) => id !== event.target.value));
+    }
+    console.log(camelot);
+    
+  };
+
   return (
     <Wrapper>
       <ul>
         {CAMELOTS.map((item) => (
           <li key={item}>
             <label>
-              <input type="checkbox" value={item} />
+              <input
+                type="checkbox"
+                value={item}
+                checked={camelot.includes(item)}
+                onChange={handleChange}
+              />
               {item}
             </label>
           </li>
@@ -70,4 +90,24 @@ const CamelotDropdown = () => {
     </Wrapper>
   );
 };
-export default CamelotDropdown;
+
+// export const Checkbox = ({ option, selectedOptions, setSelectedOptions }) => {
+//   const handleChange = (event) => {
+//     if (event.target.checked) {
+//       setSelectedOptions([...selectedOptions, option.id]);
+//     } else {
+//       setSelectedOptions(selectedOptions.filter((id) => id !== option.id));
+//     }
+//   };
+
+//   return (
+//     <label>
+//       <input
+//         type="checkbox"
+//         checked={selectedOptions.includes(option.id)}
+//         onChange={handleChange}
+//       />
+//       {option.label}
+//     </label>
+//   );
+// }

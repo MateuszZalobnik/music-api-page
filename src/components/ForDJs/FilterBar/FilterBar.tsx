@@ -1,15 +1,15 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import styled from 'styled-components';
-import CamelotDropdown from './CamelotWrapper';
+import { CamelotDropdown } from './CamelotWrapper';
 
 export const FilterBar = () => {
   const searchParams = useSearchParams();
   const [openCamelot, setOpenCamelot] = useState(false);
-  // const initialCamelot = searchParams.get('camelot')
-  //   ? String(searchParams.get('camelot')).split(',')
-  //   : null;
-  // const [camelot, setCamelot] = useState<string[] | null>(initialCamelot);
+  const initialCamelot = searchParams.get('camelot')
+    ? String(searchParams.get('camelot')).split(',')
+    : [];
+  const [camelot, setCamelot] = useState<string[]>(initialCamelot);
   const [minBpm, setMinBpm] = useState(searchParams.get('bpm_gt'));
   const [maxBpm, setMaxBpm] = useState(searchParams.get('bpm_lt'));
   const [searchPhrase, setSearchPhrase] = useState(searchParams.get('title'));
@@ -53,13 +53,15 @@ export const FilterBar = () => {
           value={searchPhrase ? String(searchPhrase) : ''}
           onChange={(e) => setSearchPhrase(e.target.value)}
         />
-        {/* <CamelotWrapper>
+        <CamelotWrapper>
           <CamelotButton onClick={() => setOpenCamelot((prev) => !prev)}>
             <span>Camelot</span>
             &#9660;
           </CamelotButton>
-          {openCamelot && <CamelotDropdown />}
-        </CamelotWrapper> */}
+          {openCamelot && (
+            <CamelotDropdown camelot={camelot} setCamelot={setCamelot} />
+          )}
+        </CamelotWrapper>
       </div>
       <div></div>
       <SumbitWrapper>
