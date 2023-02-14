@@ -3,6 +3,24 @@ import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 import styled from 'styled-components';
 
+export const Nav: React.FC = () => {
+  const param = usePathname();
+
+  return (
+    <Wrapper>
+      <StyledLink href="/Docs" active={param === '/Docs' ? 'true' : 'false'}>
+        Docs
+      </StyledLink>
+      <StyledLink
+        href="/ForDJs"
+        active={param === '/ForDJs' ? 'true' : 'false'}
+      >
+        ForDJs
+      </StyledLink>
+    </Wrapper>
+  );
+};
+
 const Wrapper = styled.nav`
   display: flex;
   flex-direction: column;
@@ -24,24 +42,7 @@ const StyledLink = styled(Link)<LinkProps>`
   width: max-content;
   border-bottom: ${({ active, theme }) =>
     active === 'true' ? `4px solid ${theme.colors.primary}` : 'none'};
+  :hover {
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
-
-const Nav: React.FC = () => {
-  const param = usePathname();
-
-  return (
-    <Wrapper>
-      <StyledLink
-        href="/ForDJs"
-        active={param === '/ForDJs' ? 'true' : 'false'}
-      >
-        ForDJs
-      </StyledLink>
-      <StyledLink href="/Docs" active={param === '/Docs' ? 'true' : 'false'}>
-        Docs
-      </StyledLink>
-    </Wrapper>
-  );
-};
-
-export default Nav;

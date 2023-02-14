@@ -2,7 +2,7 @@
 import useSWR from 'swr';
 import axios from 'axios';
 import styled from 'styled-components';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { MusicItem } from '@/components/ForDJs/MusicItem';
 import { FilterBar } from '@/components/ForDJs/FilterBar/FilterBar';
 import { useSearchParams } from 'next/navigation';
@@ -12,14 +12,36 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 const URL = 'https://musicapi-fpzm.onrender.com/music';
 
 export default function ForDJs() {
+  const [music, setMusic] = useState<
+    | {
+        _id: string;
+        title: string;
+        album: string;
+        artist: string[];
+        bpm: number;
+        camelot: string;
+      }[]
+    | null
+  >(null);
   const searchParams = useSearchParams();
   const bpm_gt = searchParams.get('bpm_gt');
   const bpm_lt = searchParams.get('bpm_lt');
   const searchPhrase = searchParams.get('title');
+  const camelot = searchParams.get('camelot');
   let currentUrl = setApiUrl(bpm_gt, bpm_lt, searchPhrase);
   const { data, error, isLoading } = useSWR(currentUrl, fetcher);
 
-  useEffect(() => {}, [data]);
+  useEffect(() => {
+    let currentData = data;
+    if (data && camelot && camelot.length > 0) {
+      const camelotArray = camelot.split(',');
+
+      currentData = currentData.filter((item: { camelot: string }) =>
+        camelotArray.includes(item.camelot)
+      );
+    }
+    setMusic(currentData);
+  }, [data, camelot]);
 
   return (
     <Wrapper>
@@ -32,8 +54,8 @@ export default function ForDJs() {
         </InfoWrapper>
       </InfoLabel>
       <MusicList>
-        {data ? (
-          data.map(
+        {music ? (
+          music.map(
             (item: {
               _id: string;
               title: string;
@@ -80,7 +102,7 @@ const Title = styled.h1`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 10px 10px 50px 10px;
   margin: auto;
   font-size: ${({ theme }) => theme.fontSize.s};
   color: ${({ theme }) => theme.colors.grey};
@@ -105,10 +127,17 @@ const InfoWrapper = styled.div`
   padding: 15px 0px 15px 0px;
   background-color: ${({ theme }) => theme.colors.darkGrey};
   justify-items: center;
-  font-size: ${({ theme }) => theme.fontSize.s};
+  font-size: ${({ theme }) => theme.fontSize.xs};
   grid-column-start: 2;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  border-radius: ${({ theme }) => theme.borderRadius.xs};
+  ${({ theme }) => theme.mq.tablet} {
+    font-size: ${({ theme }) => theme.fontSize.s};
+  }
+  ${({ theme }) => theme.mq.desktop} {
+    font-size: ${({ theme }) => theme.fontSize.m};
+  }
 `;
 
 const MusicList = styled.div``;

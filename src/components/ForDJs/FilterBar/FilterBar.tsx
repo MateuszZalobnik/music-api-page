@@ -17,12 +17,14 @@ export const FilterBar = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+
     let url = '/ForDJs?';
     minBpm && minBpm != '' ? (url = `${url}bpm_gt=${minBpm}&`) : null;
     maxBpm && maxBpm != '' ? (url = `${url}bpm_lt=${maxBpm}&`) : null;
     searchPhrase && searchPhrase != ''
-      ? (url = `${url}title=${searchPhrase}`)
+      ? (url = `${url}title=${searchPhrase}&`)
       : null;
+    camelot.length > 0 ? (url = `${url}camelot=${camelot.join(',')}`) : null;
     router.push(url);
   };
   return (
@@ -54,7 +56,10 @@ export const FilterBar = () => {
           onChange={(e) => setSearchPhrase(e.target.value)}
         />
         <CamelotWrapper>
-          <CamelotButton onClick={() => setOpenCamelot((prev) => !prev)}>
+          <CamelotButton
+            type="button"
+            onClick={() => setOpenCamelot((prev) => !prev)}
+          >
             <span>Camelot</span>
             &#9660;
           </CamelotButton>
