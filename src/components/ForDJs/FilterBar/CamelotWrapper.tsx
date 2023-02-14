@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 
 const CAMELOTS = [
@@ -27,6 +28,39 @@ const CAMELOTS = [
   '12B',
 ];
 
+export const CamelotDropdown: React.FC<{
+  camelot: string[];
+  setCamelot: Dispatch<SetStateAction<string[]>>;
+}> = ({ camelot, setCamelot }) => {
+  const handleChange = (event: any) => {
+    if (event.target.checked) {
+      setCamelot([...camelot, event.target.value]);
+    } else {
+      setCamelot(camelot.filter((id) => id !== event.target.value));
+    }
+  };
+
+  return (
+    <Wrapper>
+      <ul>
+        {CAMELOTS.map((item) => (
+          <li key={item}>
+            <label>
+              <input
+                type="checkbox"
+                value={item}
+                checked={camelot.includes(item)}
+                onChange={handleChange}
+              />
+              {item}
+            </label>
+          </li>
+        ))}
+      </ul>
+    </Wrapper>
+  );
+};
+
 const Wrapper = styled.div`
   height: 200px;
   overflow-y: scroll;
@@ -53,21 +87,3 @@ const Wrapper = styled.div`
     }
   }
 `;
-
-const CamelotDropdown = () => {
-  return (
-    <Wrapper>
-      <ul>
-        {CAMELOTS.map((item) => (
-          <li key={item}>
-            <label>
-              <input type="checkbox" value={item} />
-              {item}
-            </label>
-          </li>
-        ))}
-      </ul>
-    </Wrapper>
-  );
-};
-export default CamelotDropdown;

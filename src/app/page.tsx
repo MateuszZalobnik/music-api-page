@@ -39,7 +39,7 @@ const Wrapper = styled.p`
   display: flex;
   flex-direction: column;
   padding: 10px;
-  margin: 5vh auto 0 auto;
+  margin: 5vh auto 5vh auto;
   font-size: ${({ theme }) => theme.fontSize.s};
   color: ${({ theme }) => theme.colors.grey};
   font-weight: ${({ theme }) => theme.fontWeight.regular};

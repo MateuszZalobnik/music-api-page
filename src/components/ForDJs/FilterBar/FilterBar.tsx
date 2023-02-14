@@ -1,15 +1,15 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import styled from 'styled-components';
-import CamelotDropdown from './CamelotWrapper';
+import { CamelotDropdown } from './CamelotWrapper';
 
 export const FilterBar = () => {
   const searchParams = useSearchParams();
   const [openCamelot, setOpenCamelot] = useState(false);
-  // const initialCamelot = searchParams.get('camelot')
-  //   ? String(searchParams.get('camelot')).split(',')
-  //   : null;
-  // const [camelot, setCamelot] = useState<string[] | null>(initialCamelot);
+  const initialCamelot = searchParams.get('camelot')
+    ? String(searchParams.get('camelot')).split(',')
+    : [];
+  const [camelot, setCamelot] = useState<string[]>(initialCamelot);
   const [minBpm, setMinBpm] = useState(searchParams.get('bpm_gt'));
   const [maxBpm, setMaxBpm] = useState(searchParams.get('bpm_lt'));
   const [searchPhrase, setSearchPhrase] = useState(searchParams.get('title'));
@@ -17,12 +17,14 @@ export const FilterBar = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+
     let url = '/ForDJs?';
     minBpm && minBpm != '' ? (url = `${url}bpm_gt=${minBpm}&`) : null;
     maxBpm && maxBpm != '' ? (url = `${url}bpm_lt=${maxBpm}&`) : null;
     searchPhrase && searchPhrase != ''
-      ? (url = `${url}title=${searchPhrase}`)
+      ? (url = `${url}title=${searchPhrase}&`)
       : null;
+    camelot.length > 0 ? (url = `${url}camelot=${camelot.join(',')}`) : null;
     router.push(url);
   };
   return (
@@ -53,13 +55,18 @@ export const FilterBar = () => {
           value={searchPhrase ? String(searchPhrase) : ''}
           onChange={(e) => setSearchPhrase(e.target.value)}
         />
-        {/* <CamelotWrapper>
-          <CamelotButton onClick={() => setOpenCamelot((prev) => !prev)}>
+        <CamelotWrapper>
+          <CamelotButton
+            type="button"
+            onClick={() => setOpenCamelot((prev) => !prev)}
+          >
             <span>Camelot</span>
             &#9660;
           </CamelotButton>
-          {openCamelot && <CamelotDropdown />}
-        </CamelotWrapper> */}
+          {openCamelot && (
+            <CamelotDropdown camelot={camelot} setCamelot={setCamelot} />
+          )}
+        </CamelotWrapper>
       </div>
       <div></div>
       <SumbitWrapper>
