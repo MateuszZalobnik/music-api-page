@@ -6,6 +6,8 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from '../assets/styles/theme';
 import { Header } from '@/components/Header/Header';
 import { usePathname } from 'next/navigation';
+import { Provider } from 'react-redux';
+import { store } from '@/store/store';
 export default function RootLayout({
   children,
 }: {
@@ -14,12 +16,14 @@ export default function RootLayout({
   const pathname = usePathname();
   return (
     <html>
-      <head/>
+      <head />
       <body>
-        <ThemeProvider theme={theme}>
-          {!(pathname?.includes('login')) && <Header />}
-          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-        </ThemeProvider>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            {!pathname?.includes('login') && <Header />}
+            <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+          </ThemeProvider>
+        </Provider>
       </body>
     </html>
   );

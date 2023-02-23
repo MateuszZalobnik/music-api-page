@@ -2,23 +2,91 @@
 import { PageTitle } from '@/components/Header/PageTitle';
 import styled from 'styled-components';
 import Link from 'next/link';
+import axios from 'axios';
+import { FormEvent, useState } from 'react';
+
+const URL_REGISTER = 'http://localhost:5050/register';
 
 const RegisterPage = () => {
+  const [error, setError] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+const resetInputs = () => {
+  setConfirmPassword('');
+  setPassword('');
+  setUsername('');
+  setError('');
+  setEmail('');
+}
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (
+      email !== '' &&
+      username !== '' &&
+      password !== '' &&
+      confirmPassword === password
+    ) {
+      try {
+        const { data } = await axios.post(
+          URL_REGISTER,
+          {
+            username: username,
+            email: email,
+            password: password,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        console.log(data);
+        resetInputs();
+      } catch (err: any) {
+        setError(err.response.data.message);
+      }
+    } else {
+      setError('Not valid');
+    }
+  };
+
   return (
     <Wrapper>
-      <StyledForm>
+      <StyledForm onSubmit={handleSubmit}>
         <PageTitle />
-        <input type="text" placeholder="login" name="username" />
-        <input type="email" placeholder="email" name="email" />
-        <input type="password" placeholder="password" name="passsword" />
+        <input
+          type="text"
+          placeholder="login"
+          name="username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="email"
+          placeholder="email"
+          name="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="password"
+          name="passsword"
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <input
           type="password"
           placeholder="confirm password"
           name="passswordConfirm"
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
         {/* <label>
           <input type="checkbox" />I agree.
         </label> */}
+        {error !== '' ? <ErrorMessage>{error}</ErrorMessage> : null}
         <StyledButton type="submit">Register</StyledButton>
         <RegisterLinkWrapper>
           Already have an account?
@@ -88,4 +156,11 @@ const RegisterLinkWrapper = styled.span`
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSize.xs};
   margin: 20px auto 0 auto;
+`;
+
+const ErrorMessage = styled.div`
+  margin-top: 20px;
+  text-align: center;
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  color: ${({ theme }) => theme.colors.white};
 `;
