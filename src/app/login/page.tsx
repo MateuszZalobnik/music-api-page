@@ -36,7 +36,7 @@ const LoginPage = () => {
             },
           }
         );
-        localStorage.setItem('token', data.accessToken);
+        localStorage.setItem('access_token', data.accessToken);
         localStorage.setItem('refresh_token', data.refreshToken);
         console.log(data);
         resetInputs();

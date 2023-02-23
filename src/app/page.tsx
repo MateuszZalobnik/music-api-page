@@ -1,7 +1,13 @@
 'use client';
+import { userData } from '@/helpers/userData';
 import styled from 'styled-components';
 
 const Home = () => {
+  const accessToken = localStorage.getItem('access_token');
+  const refreshToken = localStorage.getItem('refresh_token');
+  if(accessToken && refreshToken){
+    userData(accessToken, refreshToken);
+  }
   return (
     <Wrapper>
       Welcome to our web app designed for developers and DJs alike! Our platform
