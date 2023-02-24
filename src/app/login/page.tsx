@@ -2,7 +2,6 @@
 import { PageTitle } from '@/components/Header/PageTitle';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { FormEvent, useState } from 'react';
 import axios from 'axios';
 
@@ -12,8 +11,6 @@ const LoginPage = () => {
   const [emailOrUsername, setEmailOrUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  // const count = useAppSelector((state) => state.user.data);
-  // const dispatch = useAppDispatch();
   const resetInputs = () => {
     setPassword('');
     setError('');

@@ -8,12 +8,14 @@ import { Header } from '@/components/Header/Header';
 import { usePathname } from 'next/navigation';
 import { Provider } from 'react-redux';
 import { store } from '@/store/store';
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+
   return (
     <html>
       <head />

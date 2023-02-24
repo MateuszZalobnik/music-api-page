@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import { Nav } from './Nav';
 import { PageTitle } from './PageTitle';
 import Link from 'next/link';
+import { useAppSelector } from '@/store/hooks';
+
 export const Header: React.FC = () => {
+  const userData = useAppSelector((state) => state.user.data);
+  console.log(userData);
   return (
     <Wrapper>
       <StyledLink href="/login">Login</StyledLink>

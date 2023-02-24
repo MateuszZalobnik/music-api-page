@@ -1,13 +1,10 @@
 'use client';
-import { userData } from '@/helpers/userData';
+import { getUserData } from '@/helpers/getUserData';
 import styled from 'styled-components';
 
 const Home = () => {
-  const accessToken = localStorage.getItem('access_token');
-  const refreshToken = localStorage.getItem('refresh_token');
-  if(accessToken && refreshToken){
-    userData(accessToken, refreshToken);
-  }
+  getUserData();
+
   return (
     <Wrapper>
       Welcome to our web app designed for developers and DJs alike! Our platform
@@ -32,10 +29,10 @@ const Home = () => {
       <br />
       <br />
       With our web app, developers and DJs alike have access to the tools and
-      information they need to succeed in their respective fields. Whether
-      you are looking to build a music-related application or take your DJ skills
-      to the next level, our platform has everything you need to make your
-      vision a reality.
+      information they need to succeed in their respective fields. Whether you
+      are looking to build a music-related application or take your DJ skills to
+      the next level, our platform has everything you need to make your vision a
+      reality.
     </Wrapper>
   );
 };
