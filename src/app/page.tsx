@@ -1,5 +1,5 @@
 'use client';
-import { getUserData } from '@/helpers/getUserData';
+import { getUserData } from '@/AuthApi/getUserData';
 import styled from 'styled-components';
 
 const Home = () => {

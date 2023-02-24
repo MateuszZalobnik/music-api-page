@@ -2,8 +2,8 @@ import { useAppDispatch } from '@/store/hooks';
 import { userData } from '@/store/slice/userSlice';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { API_URL } from './URL';
 
-const API_URL = 'http://localhost:5050';
 
 export const getUserData = () => {
   const dispatch = useAppDispatch();

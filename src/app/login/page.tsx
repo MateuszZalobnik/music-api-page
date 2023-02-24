@@ -3,14 +3,14 @@ import { PageTitle } from '@/components/Header/PageTitle';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { FormEvent, useState } from 'react';
-import axios from 'axios';
-
-const URL_LOGIN = 'http://localhost:5050/login';
+import { ApiLogin } from '@/AuthApi/login';
+import { useRouter } from 'next/navigation';
 
 const LoginPage = () => {
   const [emailOrUsername, setEmailOrUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const router = useRouter();
   const resetInputs = () => {
     setPassword('');
     setError('');
@@ -21,24 +21,19 @@ const LoginPage = () => {
     if (password !== '' && emailOrUsername !== '') {
       setError('');
       try {
-        const { data } = await axios.post(
-          URL_LOGIN,
-          {
-            emailOrUsername: emailOrUsername,
-            password: password,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
+        const response: { success: boolean; message: string } = await ApiLogin(
+          emailOrUsername,
+          password
         );
-        localStorage.setItem('access_token', data.accessToken);
-        localStorage.setItem('refresh_token', data.refreshToken);
-        console.log(data);
-        resetInputs();
-      } catch (err: any) {
-        setError(err.response.data.message);
+        console.log(response);
+        if (response.success === true) {
+          resetInputs();
+          router.push('/');
+        } else {
+          setError(response.message);
+        }
+      } catch (err) {
+        setError('Not valid email/login or password.');
       }
     } else {
       setError('Not valid email/login or password.');
