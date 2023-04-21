@@ -2,9 +2,10 @@
 import { PageTitle } from '@/components/Header/PageTitle';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { ApiLogin } from '@/AuthApi/login';
 import { useRouter } from 'next/navigation';
+import { useAppSelector } from '@/store/hooks';
 
 const LoginPage = () => {
   const [emailOrUsername, setEmailOrUsername] = useState('');
@@ -16,6 +17,15 @@ const LoginPage = () => {
     setError('');
     setEmailOrUsername('');
   };
+  const userData = useAppSelector((state) => state.user.data);
+
+  useEffect(()=>{
+    console.log(userData)
+    if(userData == null){
+      router.push('/');
+    }
+  }, [userData])
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== '' && emailOrUsername !== '') {

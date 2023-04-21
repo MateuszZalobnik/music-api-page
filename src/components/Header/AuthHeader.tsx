@@ -1,7 +1,7 @@
 'use client';
 import OffIcon from '@/assets/icons/OffIcon';
 import { ApiLogout } from '@/AuthApi/logout';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { logout } from '@/store/slice/userSlice';
 import { useRouter } from 'next/navigation';
 import React from 'react';
@@ -17,11 +17,12 @@ export const AuthHeader: React.FC<{ username: string }> = ({ username }) => {
     try {
       const success = await ApiLogout();
       if (success) {
-        dispatch(logout);
         localStorage.removeItem('refresh_token');
+        localStorage.removeItem('access_token');
+        dispatch(logout());
+        router.refresh();
       }
     } catch (err) {}
-    router.refresh();
   };
   return (
     <Wrapper>

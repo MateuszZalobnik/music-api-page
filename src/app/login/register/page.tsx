@@ -14,13 +14,13 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-const resetInputs = () => {
-  setConfirmPassword('');
-  setPassword('');
-  setUsername('');
-  setError('');
-  setEmail('');
-}
+  const resetInputs = () => {
+    setConfirmPassword('');
+    setPassword('');
+    setUsername('');
+    setError('');
+    setEmail('');
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,9 +45,10 @@ const resetInputs = () => {
             },
           }
         );
-        console.log(data);
         resetInputs();
+        setError(data.message);
       } catch (err: any) {
+        console.log(err);
         setError(err.response.data.message);
       }
     } else {
@@ -63,24 +64,28 @@ const resetInputs = () => {
           type="text"
           placeholder="login"
           name="username"
+          value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
           type="email"
           placeholder="email"
           name="email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="password"
           name="passsword"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
           type="password"
           placeholder="confirm password"
           name="passswordConfirm"
+          value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
         {/* <label>

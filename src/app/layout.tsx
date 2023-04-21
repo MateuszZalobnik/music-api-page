@@ -8,6 +8,7 @@ import { Header } from '@/components/Header/Header';
 import { usePathname } from 'next/navigation';
 import { Provider } from 'react-redux';
 import { store } from '@/store/store';
+import { useEffect } from 'react';
 
 export default function RootLayout({
   children,

@@ -1,10 +1,7 @@
 'use client';
-import { getUserData } from '@/AuthApi/getUserData';
 import styled from 'styled-components';
 
 const Home = () => {
-  getUserData();
-
   return (
     <Wrapper>
       Welcome to our web app designed for developers and DJs alike! Our platform

@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/store/hooks';
-import { userData } from '@/store/slice/userSlice';
+import { logout, userData } from '@/store/slice/userSlice';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { API_URL } from './URL';
@@ -57,5 +57,8 @@ export const getUserData = () => {
           }
         });
     }
+    // else {
+    //   dispatch(logout());
+    // }
   }, []);
 };

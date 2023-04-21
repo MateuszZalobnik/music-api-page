@@ -9,7 +9,7 @@ export const ApiLogout = async (): Promise<boolean> => {
         token: refreshToken,
       },
     });
-    console.log(response);
+    // console.log(response);
     return response.data.success;
   } catch (error) {
     console.error(error);
